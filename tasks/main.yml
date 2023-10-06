@@ -17,11 +17,9 @@
   - name: "Get the ip of {{ service_cfg.name }}"
     command: "docker inspect   -f '{{ '{{' }}(index .NetworkSettings.Networks \"traefik_default\").IPAddress{{ '}}' }}' {{ service_cfg.name }}"
     register: command_output
-  - debug: msg="{{ command_output.stdout }}"
   - name: "Save ip in a variable"
     ansible.builtin.set_fact:
       portainer_ip: "{{ command_output.stdout }}"
-  - debug: msg="{{ portainer_ip }}"
   - wait_for:
       host: "{{ portainer_ip }}"
       port: 9000
