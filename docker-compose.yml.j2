@@ -10,5 +10,10 @@ services:
     volumes:
       - "{{ service_cfg.directory }}:/data:rw"
       - "/var/run/docker.sock:/var/run/docker.sock"
-    labels: *base_labels
+    labels:
+      << : *base_labels
+{% if service_cfg.url_path_prefix is defined and service_cfg.url_path_prefix|length %}
+      traefik.http.middlewares.{{ service_cfg.name }}_stripprefix.stripprefix.prefixes: {{ service_cfg.url_path_prefix }}
+      traefik.http.routers.{{ service_cfg.name }}_web.middlewares: "{{ service_cfg.name }}_stripprefix"
+{% endif %}
     networks: *base_networks
