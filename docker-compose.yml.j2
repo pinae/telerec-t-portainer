@@ -16,4 +16,5 @@ services:
       traefik.http.middlewares.{{ service_cfg.name }}_stripprefix.stripprefix.prefixes: {{ service_cfg.url_path_prefix }}
       traefik.http.routers.{{ service_cfg.name }}_web.middlewares: "{{ service_cfg.name }}_stripprefix"
 {% endif %}
-    networks: *base_networks
+    networks:
+      default:
