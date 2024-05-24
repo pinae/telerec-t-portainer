@@ -10,6 +10,7 @@
       external: true
       watchtower: true
       autoheal: true
+      stripprefix: true
       skip_network_definition: false
       subdirs: ["workdir", "confdir"]
 
